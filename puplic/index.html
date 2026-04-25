@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hodle | Dynamic Mining & Rewards System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="dark">
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">HD</div>
+        <div class="brand-copy">
+          <h1>Hodle Yield</h1>
+          <p>Dynamic Mining & Rewards System</p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <div class="nav-links" aria-label="Site navigation">
+          <a class="ghost-btn" href="#customer-view">Customer Dashboard</a>
+          <a class="ghost-btn" href="admin.html">Admin Console</a>
+        </div>
+        <button class="ghost-btn" id="themeToggle" type="button">Light Mode</button>
+        <a class="primary-btn" href="#packages">Launch Wireframes</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <span class="eyebrow">Responsive fintech wireframes with live-motion UI</span>
+        <h2>Multi-asset reward flows built for trust, retention, and operator control.</h2>
+        <p>
+          This customer experience package turns your brief into a production-minded interface system with onboarding, portfolio tracking, reward cycles, deposits, referrals, and transparent reward messaging. The admin back office now lives in its own workspace so each side of the product can evolve independently.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#customer-view">Explore User Flow</a>
+          <a class="ghost-btn" href="admin.html">Open Admin Console</a>
+        </div>
+        <div class="live-strip">
+          <div class="mini-stat">
+            <span>Tracked Assets</span>
+            <strong>BTC / ETH / BNB / SOL / DOGE</strong>
+          </div>
+          <div class="mini-stat">
+            <span>Reward Engine</span>
+            <strong class="pulse">24h Cycle Active</strong>
+          </div>
+          <div class="mini-stat">
+            <span>Wireframe Scope</span>
+            <strong>Customer + Compliance + Admin Linkout</strong>
+          </div>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="orbital">
+          <div class="coin btc">BTC</div>
+          <div class="coin eth">ETH</div>
+          <div class="coin bnb">BNB</div>
+          <div class="coin sol">SOL</div>
+          <div class="coin doge">DOGE</div>
+          <div class="orbit-core">
+            <div>
+              <small>Total Simulated Yield</small>
+              <strong id="heroYield" data-target="128640">$0</strong>
+            </div>
+          </div>
+        </div>
+        <div class="signal-card">
+          <article>
+            <span>Live Reward Feed</span>
+            <h3 id="feedReward" data-target="2487">$0</h3>
+          </article>
+          <article>
+            <span>Conversion Engine</span>
+            <h3 id="feedRate">1.84% avg</h3>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <main class="page-grid">
+      <section id="customer-view">
+        <div class="section-head">
+          <div>
+            <h3>Customer Dashboard Wireframes</h3>
+            <p>Investor-facing layouts for acquisition, onboarding, earnings visibility, deposits, referral growth, and recurring reward engagement.</p>
+          </div>
+          <div class="pill-row">
+            <span class="chip">Mobile-first</span>
+            <span class="chip">Dark / Light mode</span>
+            <span class="chip">Animated counters</span>
+            <span class="chip">Realtime mock feed</span>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <article class="stat-card">
+            <span>Total Portfolio Value</span>
+            <strong data-target="24890">$0</strong>
+            <div class="table-meta">Across 5 assets + USDT wallet reserve</div>
+          </article>
+          <article class="stat-card">
+            <span>Daily Earnings</span>
+            <strong data-target="312.6">$0</strong>
+            <div class="table-meta">Auto-accrual + harvest ready</div>
+          </article>
+          <article class="stat-card">
+            <span>Compounding Power</span>
+            <strong data-target="68">0%</strong>
+            <div class="table-meta">68% of users reinvest at least weekly</div>
+          </article>
+          <article class="stat-card">
+            <span>Referral Commission</span>
+            <strong data-target="4680">$0</strong>
+            <div class="table-meta">Tiered direct + indirect ladder</div>
+          </article>
+        </div>
+
+        <div class="portfolio-grid">
+          <article class="card chart-panel">
+            <div class="chart-legend">
+              <div>
+                <h4>Portfolio Performance</h4>
+                <div class="muted">7-day earning curve with asset allocation and ROI pacing</div>
+              </div>
+              <div class="coin-row">
+                <span class="chip">BTC 32%</span>
+                <span class="chip">ETH 24%</span>
+                <span class="chip">BNB 18%</span>
+                <span class="chip">SOL 16%</span>
+                <span class="chip">DOGE 10%</span>
+              </div>
+            </div>
+            <svg class="chart-svg" viewBox="0 0 600 240" aria-label="Portfolio chart">
+              <defs>
+                <linearGradient id="lineGlow" x1="0%" x2="100%" y1="0%" y2="0%">
+                  <stop offset="0%" stop-color="#44d9ff"></stop>
+                  <stop offset="100%" stop-color="#4ef0a5"></stop>
+                </linearGradient>
+                <linearGradient id="areaGlow" x1="0%" x2="0%" y1="0%" y2="100%">
+                  <stop offset="0%" stop-color="rgba(68, 217, 255, 0.4)"></stop>
+                  <stop offset="100%" stop-color="rgba(68, 217, 255, 0.02)"></stop>
+                </linearGradient>
+              </defs>
+              <g stroke="rgba(255,255,255,0.08)">
+                <line x1="40" y1="20" x2="40" y2="210"></line>
+                <line x1="40" y1="210" x2="560" y2="210"></line>
+                <line x1="40" y1="160" x2="560" y2="160"></line>
+                <line x1="40" y1="110" x2="560" y2="110"></line>
+                <line x1="40" y1="60" x2="560" y2="60"></line>
+              </g>
+              <path d="M40,190 C100,176 110,150 160,148 C220,144 240,114 290,116 C345,118 360,70 420,82 C470,92 492,48 560,52 L560,210 L40,210 Z" fill="url(#areaGlow)"></path>
+              <path d="M40,190 C100,176 110,150 160,148 C220,144 240,114 290,116 C345,118 360,70 420,82 C470,92 492,48 560,52" fill="none" stroke="url(#lineGlow)" stroke-width="6" stroke-linecap="round"></path>
+              <g fill="#4ef0a5">
+                <circle cx="160" cy="148" r="5"></circle>
+                <circle cx="290" cy="116" r="5"></circle>
+                <circle cx="420" cy="82" r="5"></circle>
+                <circle cx="560" cy="52" r="6"></circle>
+              </g>
+            </svg>
+            <div class="balance-bar">
+              <div class="asset-line">
+                <b>BTC</b>
+                <div class="track"><div class="fill" style="--fill: 32%;"></div></div>
+                <span>32%</span>
+              </div>
+              <div class="asset-line">
+                <b>ETH</b>
+                <div class="track"><div class="fill" style="--fill: 24%;"></div></div>
+                <span>24%</span>
+              </div>
+              <div class="asset-line">
+                <b>BNB</b>
+                <div class="track"><div class="fill" style="--fill: 18%;"></div></div>
+                <span>18%</span>
+              </div>
+              <div class="asset-line">
+                <b>SOL</b>
+                <div class="track"><div class="fill" style="--fill: 16%;"></div></div>
+                <span>16%</span>
+              </div>
+              <div class="asset-line">
+                <b>DOGE</b>
+                <div class="track"><div class="fill" style="--fill: 10%;"></div></div>
+                <span>10%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card reward-card">
+            <div>
+              <h4>Next Reward Window</h4>
+              <div class="muted">24-hour countdown timer with auto-accrual and harvest action states</div>
+            </div>
+            <div class="countdown">
+              <span class="label">Cycle resets in</span>
+              <strong id="countdown">23:59:59</strong>
+              <div class="table-meta">Reset anchored to user reward cadence</div>
+            </div>
+            <div class="reward-split">
+              <div class="reward-box">
+                <span class="label">Pending Claim</span>
+                <h4 data-target="124.88">$0</h4>
+                <div class="table-meta">Harvest to wallet or compound into active package</div>
+              </div>
+              <div class="reward-box">
+                <span class="label">Projected APY Band</span>
+                <h4>18% - 44%</h4>
+                <div class="table-meta">Displayed with simulation transparency messaging</div>
+              </div>
+            </div>
+            <div class="inline-actions">
+              <button class="primary-btn" type="button">Harvest Rewards</button>
+              <button class="ghost-btn" type="button">Compound Earnings</button>
+            </div>
+            <div class="feed-list">
+              <div class="feed-item">
+                <div>
+                  <strong>Reward cycle synced</strong>
+                  <div class="table-meta">BTC package refreshed 14s ago</div>
+                </div>
+                <span class="status live">Live</span>
+              </div>
+              <div class="feed-item">
+                <div>
+                  <strong>Referral bonus posted</strong>
+                  <div class="table-meta">Tier 2 commission added to bonus wallet</div>
+                </div>
+                <span class="status review">+8%</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="auth-grid">
+          <article class="card">
+            <div class="section-head">
+              <div>
+                <h3>Authentication & Onboarding</h3>
+                <p>Entry screens for email signup, wallet connect, KYC-lite prompts, and trust-building first-touch messaging.</p>
+              </div>
+            </div>
+            <div class="auth-stack">
+              <div class="auth-box">
+                <strong>Create account</strong>
+                <label>Email
+                  <input type="email" placeholder="name@example.com">
+                </label>
+                <label>Password
+                  <input type="password" placeholder="Create a secure password">
+                </label>
+                <div class="inline-actions" style="margin-top: 14px;">
+                  <button class="primary-btn" type="button">Sign Up</button>
+                  <button class="ghost-btn" type="button">Log In</button>
+                </div>
+              </div>
+              <div class="auth-box">
+                <strong>Optional wallet connect</strong>
+                <div class="table-meta">For faster deposits, proof of ownership, and wallet-linked identity.</div>
+                <div class="inline-actions" style="margin-top: 14px;">
+                  <button class="ghost-btn" type="button">MetaMask</button>
+                  <button class="ghost-btn" type="button">WalletConnect</button>
+                </div>
+              </div>
+              <div class="auth-box">
+                <strong>KYC-lite routing</strong>
+                <label>Verification level
+                  <select>
+                    <option>Basic account only</option>
+                    <option>Deposits above $2,000</option>
+                    <option>Withdrawal unlock flow</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="section-head">
+              <div>
+                <h3>Active Package Timeline</h3>
+                <p>Wireframe for live positions, ROI pacing, hashrate-style power labels, and package lifecycle visibility.</p>
+              </div>
+            </div>
+            <div class="timeline">
+              <div class="timeline-item">
+                <strong>Starter Grid | $50</strong>
+                <div class="table-meta">1.0% daily | Simulated power: 1.2 TH/s | 30 day cycle</div>
+                <div class="progress-cluster">
+                  <span class="table-meta">ROI progress 38%</span>
+                  <div class="track"><div class="fill" style="--fill: 38%;"></div></div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <strong>Velocity Vault | $1,000</strong>
+                <div class="table-meta">1.6% daily | Simulated power: 18.4 TH/s | 60 day cycle</div>
+                <div class="progress-cluster">
+                  <span class="table-meta">ROI progress 62%</span>
+                  <div class="track"><div class="fill" style="--fill: 62%;"></div></div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <strong>Summit Engine | $5,000</strong>
+                <div class="table-meta">Up to 2.0% daily | Simulated power: 94 TH/s | Premium package lane</div>
+                <div class="progress-cluster">
+                  <span class="table-meta">ROI progress 18%</span>
+                  <div class="track"><div class="fill" style="--fill: 18%;"></div></div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <section id="packages">
+          <div class="section-head">
+            <div>
+              <h3>Investment / Mining Packages</h3>
+              <p>Predefined pricing tiers with return ranges, durations, earning power, and CTA patterns for activation or comparison.</p>
+            </div>
+          </div>
+          <div class="package-grid">
+            <article class="package">
+              <span class="tag">Starter</span>
+              <h4>Micro Kickoff</h4>
+              <div class="package-price">$50</div>
+              <div class="muted">Target daily yield: ~1.0%</div>
+              <ul>
+                <li>Simulated power: 1.2 TH/s</li>
+                <li>Suggested duration: 30 days</li>
+                <li>Perfect for first-time activation</li>
+              </ul>
+              <div class="progress-cluster">
+                <span class="table-meta">Popularity</span>
+                <div class="track"><div class="fill" style="--fill: 54%;"></div></div>
+              </div>
+              <button class="ghost-btn" type="button">Select Package</button>
+            </article>
+            <article class="package">
+              <span class="tag">Core</span>
+              <h4>Momentum 100</h4>
+              <div class="package-price">$100</div>
+              <div class="muted">Dynamic yield lane: 1.1% - 1.25%</div>
+              <ul>
+                <li>Simulated power: 2.6 TH/s</li>
+                <li>Flexible 30 - 45 day plan</li>
+                <li>Beginner compound path</li>
+              </ul>
+              <div class="progress-cluster">
+                <span class="table-meta">Popularity</span>
+                <div class="track"><div class="fill" style="--fill: 62%;"></div></div>
+              </div>
+              <button class="ghost-btn" type="button">Select Package</button>
+            </article>
+            <article class="package featured">
+              <span class="tag">Best Match</span>
+              <h4>Growth Engine</h4>
+              <div class="package-price">$500</div>
+              <div class="muted">Dynamic yield lane: 1.35% - 1.5%</div>
+              <ul>
+                <li>Simulated power: 9.8 TH/s</li>
+                <li>Recommended 60 day duration</li>
+                <li>Balanced reward / referral profile</li>
+              </ul>
+              <div class="progress-cluster">
+                <span class="table-meta">Popularity</span>
+                <div class="track"><div class="fill" style="--fill: 78%;"></div></div>
+              </div>
+              <button class="primary-btn" type="button">Activate Package</button>
+            </article>
+            <article class="package">
+              <span class="tag">Scale</span>
+              <h4>Velocity Vault</h4>
+              <div class="package-price">$2,000</div>
+              <div class="muted">Dynamic yield lane: 1.6% - 1.8%</div>
+              <ul>
+                <li>Simulated power: 38 TH/s</li>
+                <li>Premium support & alerts</li>
+                <li>Extended compounding boosts</li>
+              </ul>
+              <div class="progress-cluster">
+                <span class="table-meta">Popularity</span>
+                <div class="track"><div class="fill" style="--fill: 44%;"></div></div>
+              </div>
+              <button class="ghost-btn" type="button">Select Package</button>
+            </article>
+            <article class="package">
+              <span class="tag">Elite</span>
+              <h4>Summit Engine</h4>
+              <div class="package-price">$5,000</div>
+              <div class="muted">Up to 2.0% daily</div>
+              <ul>
+                <li>Simulated power: 94 TH/s</li>
+                <li>Priority withdrawal reviews</li>
+                <li>Advanced referral unlock bonuses</li>
+              </ul>
+              <div class="progress-cluster">
+                <span class="table-meta">Popularity</span>
+                <div class="track"><div class="fill" style="--fill: 31%;"></div></div>
+              </div>
+              <button class="ghost-btn" type="button">Select Package</button>
+            </article>
+          </div>
+        </section>
+
+        <div class="wallet-grid">
+          <article class="card">
+            <div class="section-head">
+              <div>
+                <h3>USDT Wallet System</h3>
+                <p>Deposit address visibility, network switching, manual withdrawal queue, and confirmation status patterns.</p>
+              </div>
+            </div>
+            <div class="auth-box">
+              <strong>Deposit route</strong>
+              <label>Select network
+                <select>
+                  <option>BNB Smart Chain (BEP20)</option>
+                  <option>Polygon (ERC20 compatible)</option>
+                </select>
+              </label>
+              <div class="address-box">
+                <div>
+                  <div class="table-meta">Unique deposit address</div>
+                  <div class="mono">0x4C91f4A8c77D1B390f17E2bc2f98A0C9B4Ce21A6</div>
+                </div>
+                <button class="ghost-btn" type="button">Copy</button>
+              </div>
+              <div class="inline-actions" style="margin-top: 14px;">
+                <button class="primary-btn" type="button">I Sent USDT</button>
+                <button class="ghost-btn" type="button">View QR</button>
+              </div>
+            </div>
+            <div class="timeline" style="margin-top: 14px;">
+              <div class="timeline-item">
+                <strong>Withdrawal request</strong>
+                <div class="table-meta">Destination wallet validation + manual admin review before release.</div>
+              </div>
+              <div class="timeline-item">
+                <strong>Auto-fraud checks</strong>
+                <div class="table-meta">Velocity, device, IP, and duplicate account signals appear before submission.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="table-card">
+            <div class="section-head">
+              <div>
+                <h3>Transaction History</h3>
+                <p>Recent wallet activity, claims, deposit approvals, and pending withdrawal states.</p>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Asset</th>
+                  <th>Amount</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Deposit</td>
+                  <td>USDT</td>
+                  <td>$1,000.00</td>
+                  <td>10:24 UTC</td>
+                  <td><span class="status live">Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>Reward Claim</td>
+                  <td>BTC</td>
+                  <td>0.0018 BTC</td>
+                  <td>08:19 UTC</td>
+                  <td><span class="status review">Posted</span></td>
+                </tr>
+                <tr>
+                  <td>Withdrawal</td>
+                  <td>USDT</td>
+                  <td>$480.00</td>
+                  <td>Yesterday</td>
+                  <td><span class="status pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Referral Bonus</td>
+                  <td>USDT</td>
+                  <td>$95.00</td>
+                  <td>Yesterday</td>
+                  <td><span class="status live">Released</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="referral-grid">
+          <article class="card">
+            <div class="section-head">
+              <div>
+                <h3>Referral Engine</h3>
+                <p>Tiered incentive design with direct ranks, indirect commissions, and gamified promotion states.</p>
+              </div>
+            </div>
+            <div class="auth-box">
+              <strong>Shareable referral link</strong>
+              <div class="address-box">
+                <div class="mono">https://hodle.app/r/ISAAC-V3-BOOST</div>
+                <button class="ghost-btn" type="button">Copy Link</button>
+              </div>
+            </div>
+            <div class="tree-wrap" style="margin-top: 14px;">
+              <div class="tree-node">
+                <strong>Tier 1 Direct</strong>
+                <div class="muted">V0 0% | V1 20% | V2 30% | V3 40% | V4 45% | SH5 50%</div>
+                <span class="tier">Current Rank: V3</span>
+              </div>
+              <div class="tree-node">
+                <strong>Tier 2</strong>
+                <div class="muted">Indirect commission: 8%</div>
+                <span class="tier">12 active nodes</span>
+              </div>
+              <div class="tree-node">
+                <strong>Tiers 3 - 5</strong>
+                <div class="muted">5% / 3% / 1% expansion ladder</div>
+                <span class="tier">37 total downline</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="section-head">
+              <div>
+                <h3>Downline Snapshot</h3>
+                <p>Compact tree visualization and commission analytics for retention-focused referral UX.</p>
+              </div>
+            </div>
+            <div class="timeline">
+              <div class="timeline-item">
+                <strong>Tier 1: Amina, David, Collins, Ruth</strong>
+                <div class="table-meta">Direct commissions this cycle: $284</div>
+              </div>
+              <div class="timeline-item">
+                <strong>Tier 2 cluster</strong>
+                <div class="table-meta">8% bonus lane generated $146 this week</div>
+              </div>
+              <div class="timeline-item">
+                <strong>Rank progression</strong>
+                <div class="table-meta">2 more active directs needed to unlock V4 45%</div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="legal">
+          <strong>Transparency & Compliance Wireframe Content</strong>
+          <p>
+            Rewards shown in this prototype are clearly presented as simulated or strategy-based estimates, not guaranteed profits. The UI reserves space for reward methodology notes, terms of service, privacy policy, withdrawal policies, and clear warnings against misrepresenting yield generation as physical mining unless real infrastructure exists.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>Customer wireframe build for a multi-asset crypto rewards platform concept.</div>
+      <div>Admin operations now live in <a class="section-link" href="admin.html">admin.html</a>.</div>
+    </footer>
+  </div>
+
+  <script>
+    const body = document.body;
+    const themeToggle = document.getElementById("themeToggle");
+    const savedTheme = localStorage.getItem("hodle-theme");
+    const defaultTheme = savedTheme || "dark";
+    body.dataset.theme = defaultTheme;
+    themeToggle.textContent = defaultTheme === "dark" ? "Light Mode" : "Dark Mode";
+
+    themeToggle.addEventListener("click", () => {
+      const nextTheme = body.dataset.theme === "dark" ? "light" : "dark";
+      body.dataset.theme = nextTheme;
+      localStorage.setItem("hodle-theme", nextTheme);
+      themeToggle.textContent = nextTheme === "dark" ? "Light Mode" : "Dark Mode";
+    });
+
+    const animatedNumbers = document.querySelectorAll("[data-target]");
+
+    function formatValue(target, number) {
+      const hasCurrency = target.textContent.includes("$") || target.id === "heroYield" || target.id === "feedReward";
+      const hasPercent = target.textContent.includes("%");
+      if (hasPercent) {
+        return Math.round(number) + "%";
+      }
+      if (hasCurrency) {
+        return "$" + number.toLocaleString(undefined, { maximumFractionDigits: number % 1 ? 2 : 0 });
+      }
+      return number.toLocaleString(undefined, { maximumFractionDigits: number % 1 ? 2 : 0 });
+    }
+
+    function animateNumber(element) {
+      const target = Number(element.dataset.target);
+      const start = performance.now();
+      const duration = 1400;
+
+      function frame(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = target * eased;
+        element.textContent = formatValue(element, value);
+        if (progress < 1) {
+          requestAnimationFrame(frame);
+        }
+      }
+
+      requestAnimationFrame(frame);
+    }
+
+    animatedNumbers.forEach(animateNumber);
+
+    document.querySelectorAll(".fill").forEach((bar) => {
+      requestAnimationFrame(() => {
+        bar.style.width = bar.style.getPropertyValue("--fill") || bar.getAttribute("style").match(/--fill:\s*([^;]+)/)?.[1] || "0%";
+      });
+    });
+
+    const countdown = document.getElementById("countdown");
+    let remaining = 23 * 3600 + 59 * 60 + 59;
+
+    function tick() {
+      const hrs = String(Math.floor(remaining / 3600)).padStart(2, "0");
+      const mins = String(Math.floor((remaining % 3600) / 60)).padStart(2, "0");
+      const secs = String(remaining % 60).padStart(2, "0");
+      countdown.textContent = hrs + ":" + mins + ":" + secs;
+      remaining = remaining > 0 ? remaining - 1 : 24 * 3600 - 1;
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    const liveRewards = [
+      { reward: "$2,487", rate: "1.84% avg" },
+      { reward: "$2,514", rate: "1.88% avg" },
+      { reward: "$2,532", rate: "1.92% avg" },
+      { reward: "$2,498", rate: "1.79% avg" }
+    ];
+
+    let rewardIndex = 0;
+    setInterval(() => {
+      rewardIndex = (rewardIndex + 1) % liveRewards.length;
+      document.getElementById("feedReward").textContent = liveRewards[rewardIndex].reward;
+      document.getElementById("feedRate").textContent = liveRewards[rewardIndex].rate;
+    }, 3200);
+  </script>
+</body>
+</html>

@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hodle Admin | Control Center</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="dark">
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">HD</div>
+        <div class="brand-copy">
+          <h1>Hodle Admin</h1>
+          <p>Control Center & Operations Console</p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <div class="nav-links" aria-label="Admin navigation">
+          <a class="ghost-btn" href="index.html">Customer Dashboard</a>
+          <a class="ghost-btn" href="#controls">Admin Controls</a>
+        </div>
+        <button class="ghost-btn" id="themeToggle" type="button">Light Mode</button>
+        <button class="primary-btn" type="button">Open Incident Room</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <span class="eyebrow">Standalone admin workspace with finance, risk, treasury, and growth controls</span>
+        <h2>Run rewards, approvals, wallets, referrals, and fraud review from one operator surface.</h2>
+        <p>
+          This page now holds the full admin system separately from the customer dashboard. It includes moderation flows, financial queues, wallet rails, package tuning, role-based access concepts, support tools, and audit-oriented control panels for a production-minded back office.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#controls">Review Controls</a>
+          <a class="ghost-btn" href="index.html">Back to Customer UI</a>
+        </div>
+        <div class="live-strip">
+          <div class="mini-stat">
+            <span>Urgent Items</span>
+            <strong id="opsAlert">23 queued approvals</strong>
+          </div>
+          <div class="mini-stat">
+            <span>Rail Health</span>
+            <strong id="railStatus" class="pulse">All wallets stable</strong>
+          </div>
+          <div class="mini-stat">
+            <span>Audit Coverage</span>
+            <strong>Balances + referrals + withdrawals</strong>
+          </div>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="orbital">
+          <div class="coin btc">OPS</div>
+          <div class="coin eth">RISK</div>
+          <div class="coin bnb">KYC</div>
+          <div class="coin sol">P/L</div>
+          <div class="coin doge">API</div>
+          <div class="orbit-core">
+            <div>
+              <small>Platform Exposure</small>
+              <strong data-target="486300">$0</strong>
+            </div>
+          </div>
+        </div>
+        <div class="signal-card">
+          <article>
+            <span>Pending Withdrawals</span>
+            <h3 data-target="23">0</h3>
+          </article>
+          <article>
+            <span>Fraud Review Cases</span>
+            <h3 data-target="7">0</h3>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <main class="page-grid" id="controls">
+      <section>
+        <div class="section-head">
+          <div>
+            <h3>Admin Control Center</h3>
+            <p>Operational screens for analytics, moderation, treasury, reward timing, commissions, and compliance-aware financial supervision.</p>
+          </div>
+          <div class="pill-row">
+            <span class="chip">Role-based admin UI</span>
+            <span class="chip">Manual approvals</span>
+            <span class="chip">Fraud monitoring</span>
+            <span class="chip">Audit visibility</span>
+          </div>
+        </div>
+
+        <div class="admin-kpis">
+          <article class="stat-card">
+            <span>Total Users</span>
+            <strong data-target="18420">0</strong>
+            <div class="table-meta">+284 this week</div>
+          </article>
+          <article class="stat-card">
+            <span>Total Deposits</span>
+            <strong data-target="2849500">$0</strong>
+            <div class="table-meta">Across BEP20 + Polygon rails</div>
+          </article>
+          <article class="stat-card">
+            <span>Total Withdrawals</span>
+            <strong data-target="1174200">$0</strong>
+            <div class="table-meta">Manual approval queue enabled</div>
+          </article>
+          <article class="stat-card">
+            <span>Active Investments</span>
+            <strong data-target="9624">0</strong>
+            <div class="table-meta">Open package positions</div>
+          </article>
+          <article class="stat-card">
+            <span>Platform P/L</span>
+            <strong data-target="486300">$0</strong>
+            <div class="table-meta">Spread after rewards, referrals, and ops cost</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="command-grid">
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <h3>Operations Feed</h3>
+              <p>Live activity rails for high-priority actions, reward cycle events, and pending financial decisions.</p>
+            </div>
+          </div>
+          <div class="queue-list">
+            <div class="queue-item">
+              <div>
+                <strong>23 withdrawals waiting approval</strong>
+                <div class="table-meta">Largest request: $14,800 | Average age: 42 minutes</div>
+              </div>
+              <span class="status pending">Urgent</span>
+            </div>
+            <div class="queue-item">
+              <div>
+                <strong>11 deposit proofs awaiting confirmation</strong>
+                <div class="table-meta">5 BEP20, 6 Polygon requests require operator review</div>
+              </div>
+              <span class="status review">Queued</span>
+            </div>
+            <div class="queue-item">
+              <div>
+                <strong>3 accounts flagged for multi-device overlap</strong>
+                <div class="table-meta">Fraud review suggested before next payout cycle</div>
+              </div>
+              <span class="status risk">Risk</span>
+            </div>
+          </div>
+          <div class="table-actions">
+            <button class="primary-btn" type="button">Open Approval Queue</button>
+            <button class="ghost-btn" type="button">Escalate Risk Cases</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <h3>System Snapshot</h3>
+              <p>Fast-access toggles for environment health, wallet rails, maintenance mode, and notifications.</p>
+            </div>
+          </div>
+          <div class="switch-list">
+            <div class="switch-row">
+              <div>
+                <strong>Maintenance Mode</strong>
+                <div class="table-meta">Public dashboard visible, deposits paused</div>
+              </div>
+              <span class="switch"></span>
+            </div>
+            <div class="switch-row">
+              <div>
+                <strong>BEP20 deposit rail</strong>
+                <div class="table-meta">Healthy, average confirmation time 2m 18s</div>
+              </div>
+              <span class="switch live"></span>
+            </div>
+            <div class="switch-row">
+              <div>
+                <strong>Polygon withdrawal rail</strong>
+                <div class="table-meta">Healthy, low congestion, SLA inside threshold</div>
+              </div>
+              <span class="switch live"></span>
+            </div>
+            <div class="switch-row">
+              <div>
+                <strong>Telegram alert routing</strong>
+                <div class="table-meta">Admin risk alerts + finance escalation enabled</div>
+              </div>
+              <span class="switch live"></span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="lower-grid">
+        <article class="table-card">
+          <div class="section-head">
+            <div>
+              <h3>User Management</h3>
+              <p>User moderation, balances, investment activity, referral rank, and access status.</p>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Balance</th>
+                <th>Packages</th>
+                <th>Referral Rank</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>isaac@demo.io</td>
+                <td>$8,420</td>
+                <td>3 active</td>
+                <td>V3</td>
+                <td><span class="status live">Active</span></td>
+              </tr>
+              <tr>
+                <td>amina@demo.io</td>
+                <td>$18,960</td>
+                <td>5 active</td>
+                <td>V4</td>
+                <td><span class="status review">Watch</span></td>
+              </tr>
+              <tr>
+                <td>denis@demo.io</td>
+                <td>$1,240</td>
+                <td>1 active</td>
+                <td>V1</td>
+                <td><span class="status pending">KYC</span></td>
+              </tr>
+              <tr>
+                <td>ruth@demo.io</td>
+                <td>$0</td>
+                <td>0 active</td>
+                <td>V0</td>
+                <td><span class="status risk">Suspended</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="table-actions">
+            <button class="ghost-btn" type="button">Suspend Selected</button>
+            <button class="ghost-btn" type="button">Adjust Balances</button>
+            <button class="primary-btn" type="button">Open User Profile</button>
+          </div>
+        </article>
+
+        <article class="table-card">
+          <div class="section-head">
+            <div>
+              <h3>Withdrawal Approval Queue</h3>
+              <p>Review network, amount, destination, fraud score, and release state before final approval.</p>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Network</th>
+                <th>Amount</th>
+                <th>Fraud</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Amina</td>
+                <td>BEP20</td>
+                <td>$4,800</td>
+                <td>Low</td>
+                <td><span class="status pending">Approve</span></td>
+              </tr>
+              <tr>
+                <td>David</td>
+                <td>Polygon</td>
+                <td>$970</td>
+                <td>Medium</td>
+                <td><span class="status review">Review</span></td>
+              </tr>
+              <tr>
+                <td>Ruth</td>
+                <td>BEP20</td>
+                <td>$12,400</td>
+                <td>High</td>
+                <td><span class="status risk">Hold</span></td>
+              </tr>
+              <tr>
+                <td>Collins</td>
+                <td>Polygon</td>
+                <td>$220</td>
+                <td>Low</td>
+                <td><span class="status pending">Approve</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="table-actions">
+            <button class="primary-btn" type="button">Approve Batch</button>
+            <button class="ghost-btn" type="button">Request Reverification</button>
+            <button class="ghost-btn" type="button">Place On Hold</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="ops-grid">
+        <article class="table-card">
+          <div class="section-head">
+            <div>
+              <h3>Deposit Confirmation Queue</h3>
+              <p>Manual deposit confirmations for proof uploads, chain mismatches, and delayed receipts.</p>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Network</th>
+                <th>Amount</th>
+                <th>Proof</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Brian</td>
+                <td>BEP20</td>
+                <td>$1,500</td>
+                <td>Hash supplied</td>
+                <td><span class="status review">Review</span></td>
+              </tr>
+              <tr>
+                <td>Clare</td>
+                <td>Polygon</td>
+                <td>$320</td>
+                <td>Screenshot only</td>
+                <td><span class="status pending">Pending</span></td>
+              </tr>
+              <tr>
+                <td>Joel</td>
+                <td>BEP20</td>
+                <td>$5,000</td>
+                <td>Hash + explorer match</td>
+                <td><span class="status live">Ready</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="table-actions">
+            <button class="primary-btn" type="button">Confirm Deposit</button>
+            <button class="ghost-btn" type="button">Reject Proof</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <h3>Balance Adjustments & Audit Trail</h3>
+              <p>Manual credits, debits, reversals, and linked audit events with operator accountability.</p>
+            </div>
+          </div>
+          <div class="audit-list">
+            <div class="audit-item">
+              <div>
+                <strong>Manual credit on user bonus wallet</strong>
+                <div class="table-meta">+ $95 | Reason: referral reconciliation | by admin-02</div>
+              </div>
+              <span class="status live">Logged</span>
+            </div>
+            <div class="audit-item">
+              <div>
+                <strong>Withdrawal hold placed</strong>
+                <div class="table-meta">User: Ruth | Reason: overlapping device fingerprint</div>
+              </div>
+              <span class="status risk">Flagged</span>
+            </div>
+            <div class="audit-item">
+              <div>
+                <strong>Reward interval override removed</strong>
+                <div class="table-meta">Package: Growth Engine | Restored to 24h cycle</div>
+              </div>
+              <span class="status review">Updated</span>
+            </div>
+          </div>
+          <div class="table-actions">
+            <button class="ghost-btn" type="button">Create Journal Entry</button>
+            <button class="primary-btn" type="button">View Full Audit Log</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="control-grid">
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <h3>Package Management</h3>
+              <p>Create, edit, delete, and tune ROI, durations, caps, and featured merchandising.</p>
+            </div>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <strong>Growth Engine</strong>
+              <div class="table-meta">$500 | 1.35% - 1.5% daily | cap 4,000 users</div>
+              <div class="progress-cluster">
+                <div class="progress-note"><span>Utilization</span><span>78%</span></div>
+                <div class="track"><div class="fill" style="--fill: 78%;"></div></div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <strong>Velocity Vault</strong>
+              <div class="table-meta">$2,000 | 1.6% - 1.8% daily | premium badge enabled</div>
+            </div>
+            <div class="timeline-item">
+              <strong>Summit Engine</strong>
+              <div class="table-meta">$5,000 | up to 2.0% daily | manual approval after purchase</div>
+            </div>
+          </div>
+          <div class="table-actions">
+            <button class="primary-btn" type="button">Create Package</button>
+            <button class="ghost-btn" type="button">Bulk Edit ROI</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <h3>Referral Control</h3>
+              <p>Adjust direct and indirect commissions, watch top affiliates, and monitor abnormal downline growth.</p>
+            </div>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <strong>Direct tier ladder</strong>
+              <div class="table-meta">V1 20% | V2 30% | V3 40% | V4 45% | SH5 50%</div>
+            </div>
+            <div class="timeline-item">
+              <strong>Indirect tiers</strong>
+              <div class="table-meta">Tier 2 8% | Tier 3 5% | Tier 4 3% | Tier 5 1%</div>
+            </div>
+            <div class="timeline-item">
+              <strong>Top affiliate</strong>
+              <div class="table-meta">Amina leads with $18.4k commission month-to-date</div>
+            </div>
+          </div>
+          <div class="table-actions">
+            <button class="ghost-btn" type="button">Edit Commissions</button>
+            <button class="primary-btn" type="button">Open Leaderboard</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <h3>Treasury & Wallet Controls</h3>
+              <p>Track network reserves, destination wallets, release buffers, and treasury runway.</p>
+            </div>
+          </div>
+          <div class="stack-list">
+            <div class="timeline-item">
+              <strong>BEP20 reserve wallet</strong>
+              <div class="table-meta">Available liquidity: $420,000 | Release threshold: $25,000</div>
+            </div>
+            <div class="timeline-item">
+              <strong>Polygon reserve wallet</strong>
+              <div class="table-meta">Available liquidity: $288,000 | Release threshold: $18,000</div>
+            </div>
+            <div class="timeline-item">
+              <strong>Treasury runway</strong>
+              <div class="progress-cluster">
+                <div class="progress-note"><span>42-day modeled coverage</span><span>64%</span></div>
+                <div class="track"><div class="fill" style="--fill: 64%;"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="table-actions">
+            <button class="ghost-btn" type="button">Rotate Wallet</button>
+            <button class="primary-btn" type="button">Adjust Release Limits</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="settings-grid">
+        <article>
+          <h4>Reward & System Settings</h4>
+          <div class="timeline" style="margin-top: 14px;">
+            <div class="timeline-item">
+              <strong>Reward interval</strong>
+              <div class="table-meta">Global default 24 hours with package-specific overrides</div>
+            </div>
+            <div class="timeline-item">
+              <strong>API integrations</strong>
+              <div class="table-meta">Wallet services, email, Telegram, analytics, and KYC providers</div>
+            </div>
+            <div class="timeline-item">
+              <strong>Maintenance staging</strong>
+              <div class="table-meta">Schedule read-only mode for migrations and payout reconciliation</div>
+            </div>
+          </div>
+        </article>
+        <article>
+          <h4>Role Access Control</h4>
+          <div class="mini-table" style="margin-top: 14px;">
+            <article>
+              <div>
+                <strong>Finance Admin</strong>
+                <div class="table-meta">Withdrawals, deposits, balance adjustments</div>
+              </div>
+              <span class="status live">Full</span>
+            </article>
+            <article>
+              <div>
+                <strong>Risk Analyst</strong>
+                <div class="table-meta">Fraud review, device flags, account holds</div>
+              </div>
+              <span class="status review">Scoped</span>
+            </article>
+            <article>
+              <div>
+                <strong>Support Lead</strong>
+                <div class="table-meta">Tickets, KYC status, messaging tools</div>
+              </div>
+              <span class="status pending">Limited</span>
+            </article>
+          </div>
+        </article>
+        <article>
+          <h4>Fraud Detection</h4>
+          <div class="risk-list" style="margin-top: 14px;">
+            <article>
+              <strong>IP / device overlap monitor</strong>
+              <div class="table-meta">Flags linked registrations, payout loops, and synchronized withdrawals</div>
+            </article>
+            <article>
+              <strong>Velocity abuse engine</strong>
+              <div class="table-meta">Detects unusual reward claims, referrals, churn loops, and rapid balance shifts</div>
+            </article>
+            <article>
+              <strong>Behavior risk score</strong>
+              <div class="table-meta">Aggregates geo, device, wallet, and timing anomalies into a review priority</div>
+            </article>
+          </div>
+        </article>
+      </section>
+
+      <section class="command-grid">
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <h3>Support & Notification Desk</h3>
+              <p>Broadcast updates, payout notices, KYC reminders, and incident messaging across channels.</p>
+            </div>
+          </div>
+          <div class="stack-list">
+            <div class="timeline-item">
+              <strong>Template queue</strong>
+              <div class="table-meta">Withdrawal approved, KYC required, deposit received, maintenance notice</div>
+            </div>
+            <div class="timeline-item">
+              <strong>Channel routing</strong>
+              <div class="table-meta">Email, in-app notifications, Telegram ops alerts</div>
+            </div>
+            <div class="timeline-item">
+              <strong>Unread escalations</strong>
+              <div class="table-meta">14 open support items tied to finance or verification</div>
+            </div>
+          </div>
+          <div class="table-actions">
+            <button class="ghost-btn" type="button">Send Broadcast</button>
+            <button class="primary-btn" type="button">Open Support Queue</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <h3>API & Integration Monitor</h3>
+              <p>Track the health of external services that power wallet operations, KYC, and communications.</p>
+            </div>
+          </div>
+          <div class="stack-list">
+            <div class="switch-row">
+              <div>
+                <strong>KYC provider</strong>
+                <div class="table-meta">99.98% uptime | average response 480ms</div>
+              </div>
+              <span class="status live">Healthy</span>
+            </div>
+            <div class="switch-row">
+              <div>
+                <strong>Email provider</strong>
+                <div class="table-meta">Minor delay on transactional emails in EU region</div>
+              </div>
+              <span class="status pending">Degraded</span>
+            </div>
+            <div class="switch-row">
+              <div>
+                <strong>Blockchain indexer</strong>
+                <div class="table-meta">Deposit webhooks synchronized and confirming</div>
+              </div>
+              <span class="status live">Healthy</span>
+            </div>
+          </div>
+          <div class="table-actions">
+            <button class="ghost-btn" type="button">Retry Failed Webhooks</button>
+            <button class="primary-btn" type="button">View API Logs</button>
+          </div>
+        </article>
+      </section>
+
+      <div class="admin-note">
+        <strong>Admin safety note</strong>
+        <p class="muted">
+          This standalone admin screen is still a front-end wireframe, but it now maps the main operator responsibilities into separate control zones so backend permissions, workflows, and audit logging can be implemented cleanly in the next phase.
+        </p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div>Standalone admin wireframe for finance, risk, and platform operations.</div>
+      <div>Customer-facing experience remains in <a class="section-link" href="index.html">index.html</a>.</div>
+    </footer>
+  </div>
+
+  <script>
+    const body = document.body;
+    const themeToggle = document.getElementById("themeToggle");
+    const savedTheme = localStorage.getItem("hodle-theme");
+    const defaultTheme = savedTheme || "dark";
+    body.dataset.theme = defaultTheme;
+    themeToggle.textContent = defaultTheme === "dark" ? "Light Mode" : "Dark Mode";
+
+    themeToggle.addEventListener("click", () => {
+      const nextTheme = body.dataset.theme === "dark" ? "light" : "dark";
+      body.dataset.theme = nextTheme;
+      localStorage.setItem("hodle-theme", nextTheme);
+      themeToggle.textContent = nextTheme === "dark" ? "Light Mode" : "Dark Mode";
+    });
+
+    const animatedNumbers = document.querySelectorAll("[data-target]");
+
+    function formatValue(target, number) {
+      const hasCurrency = target.textContent.includes("$");
+      const hasPercent = target.textContent.includes("%");
+      if (hasPercent) {
+        return Math.round(number) + "%";
+      }
+      if (hasCurrency) {
+        return "$" + number.toLocaleString(undefined, { maximumFractionDigits: number % 1 ? 2 : 0 });
+      }
+      return number.toLocaleString(undefined, { maximumFractionDigits: number % 1 ? 2 : 0 });
+    }
+
+    function animateNumber(element) {
+      const target = Number(element.dataset.target);
+      const start = performance.now();
+      const duration = 1400;
+
+      function frame(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        element.textContent = formatValue(element, target * eased);
+        if (progress < 1) {
+          requestAnimationFrame(frame);
+        }
+      }
+
+      requestAnimationFrame(frame);
+    }
+
+    animatedNumbers.forEach(animateNumber);
+
+    document.querySelectorAll(".fill").forEach((bar) => {
+      requestAnimationFrame(() => {
+        bar.style.width = bar.style.getPropertyValue("--fill") || bar.getAttribute("style").match(/--fill:\s*([^;]+)/)?.[1] || "0%";
+      });
+    });
+
+    const alerts = [
+      { alert: "23 queued approvals", rail: "All wallets stable" },
+      { alert: "19 queued approvals", rail: "Polygon rail monitored" },
+      { alert: "27 queued approvals", rail: "BEP20 rail healthy" },
+      { alert: "21 queued approvals", rail: "Fraud watch elevated" }
+    ];
+
+    let alertIndex = 0;
+    setInterval(() => {
+      alertIndex = (alertIndex + 1) % alerts.length;
+      document.getElementById("opsAlert").textContent = alerts[alertIndex].alert;
+      document.getElementById("railStatus").textContent = alerts[alertIndex].rail;
+    }, 3200);
+  </script>
+</body>
+</html>
