@@ -184,6 +184,34 @@
       flex-wrap: wrap;
     }
 
+    .topbar-actions {
+      margin-left: auto;
+    }
+
+    .menu-btn {
+      display: none;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--overlay-strong);
+      color: var(--text);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .menu-btn span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
     .segmented {
       padding: 6px;
       border-radius: 999px;
@@ -936,6 +964,12 @@
       flex-wrap: wrap;
     }
 
+    .menu-item {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .admin-hero-grid,
     .command-grid,
     .control-grid,
@@ -1120,36 +1154,87 @@
 
     @media (max-width: 980px) {
       .topbar {
+        border-radius: 999px;
+        flex-direction: row;
+        align-items: center;
+        padding: 14px 18px;
+      }
+
+      .topbar-actions {
+        position: relative;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: nowrap;
+      }
+
+      .menu-btn {
+        display: inline-flex;
+      }
+
+      .menu-item {
+        display: none;
+      }
+
+      .topbar.menu-open {
         border-radius: 30px;
       }
 
-      .topbar,
-      .topbar-actions {
-        align-items: stretch;
+      .topbar.menu-open .menu-btn span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
       }
 
-      .topbar {
-        flex-direction: column;
-        padding: 18px;
+      .topbar.menu-open .menu-btn span:nth-child(2) {
+        opacity: 0;
       }
 
-      .topbar-actions {
-        width: 100%;
-        justify-content: stretch;
+      .topbar.menu-open .menu-btn span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
       }
 
-      .segmented {
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .segmented button,
-      .topbar-actions .ghost-btn,
-      .topbar-actions .primary-btn {
-        width: 100%;
+      .topbar.menu-open .nav-links.menu-item,
+      .topbar.menu-open .topbar-actions > .ghost-btn.menu-item,
+      .topbar.menu-open .topbar-actions > .primary-btn.menu-item,
+      .topbar.menu-open .topbar-actions > button.menu-item {
+        position: absolute;
+        right: 0;
+        display: inline-flex;
+        width: min(320px, calc(100vw - 32px));
         justify-content: center;
         text-align: center;
+        padding: 14px 16px;
+        border-radius: 22px;
+        background: linear-gradient(180deg, var(--panel-solid), var(--panel-2));
+        border: 1px solid var(--line);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 24px 50px rgba(3, 9, 20, 0.28);
+      }
+
+      .topbar.menu-open .nav-links.menu-item {
+        top: calc(100% + 12px);
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px;
+      }
+
+      .topbar.menu-open .topbar-actions > .ghost-btn.menu-item,
+      .topbar.menu-open .topbar-actions > button.menu-item {
+        top: calc(100% + 154px);
+      }
+
+      .topbar.menu-open .topbar-actions > .primary-btn.menu-item {
+        top: calc(100% + 218px);
+      }
+
+      .topbar.menu-open .nav-links .ghost-btn,
+      .topbar.menu-open .nav-links .primary-btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .topbar.menu-open .nav-links .ghost-btn {
+        background: var(--panel-solid);
+        border-color: var(--line);
       }
 
       .signal-card {
@@ -1227,19 +1312,13 @@
 
       .topbar {
         position: static;
-        border-radius: 28px;
+        border-radius: 999px;
         padding: 16px;
       }
 
-      .topbar,
       .brand,
       .topbar-actions {
-        align-items: stretch;
-      }
-
-      .topbar,
-      .topbar-actions {
-        flex-direction: column;
+        align-items: center;
       }
 
       .hero {
@@ -1316,8 +1395,13 @@
         font-size: 0.78rem;
       }
 
-      .segmented {
-        grid-template-columns: 1fr;
+      .topbar {
+        padding: 12px 14px;
+      }
+
+      .menu-btn {
+        width: 42px;
+        height: 42px;
       }
 
       .hero {
@@ -1358,5 +1442,13 @@
       th,
       td {
         padding: 12px 6px;
+      }
+
+      .topbar.menu-open .nav-links.menu-item,
+      .topbar.menu-open .topbar-actions > .ghost-btn.menu-item,
+      .topbar.menu-open .topbar-actions > .primary-btn.menu-item,
+      .topbar.menu-open .topbar-actions > button.menu-item {
+        width: min(300px, calc(100vw - 24px));
+        right: -2px;
       }
     }

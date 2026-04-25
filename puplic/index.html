@@ -17,12 +17,17 @@
         </div>
       </div>
       <div class="topbar-actions">
-        <div class="nav-links" aria-label="Site navigation">
+        <button class="menu-btn" id="menuToggle" type="button" aria-expanded="false" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-links menu-item" aria-label="Site navigation">
           <a class="ghost-btn" href="#customer-view">Customer Dashboard</a>
           <a class="ghost-btn" href="admin.html">Admin Console</a>
         </div>
-        <button class="ghost-btn" id="themeToggle" type="button">Light Mode</button>
-        <a class="primary-btn" href="#packages">Launch Wireframes</a>
+        <button class="ghost-btn menu-item" id="themeToggle" type="button">Light Mode</button>
+        <a class="primary-btn menu-item" href="#packages">Launch Wireframes</a>
       </div>
     </header>
 
@@ -569,11 +574,44 @@
 
   <script>
     const body = document.body;
+    const topbar = document.querySelector(".topbar");
+    const menuToggle = document.getElementById("menuToggle");
     const themeToggle = document.getElementById("themeToggle");
     const savedTheme = localStorage.getItem("hodle-theme");
     const defaultTheme = savedTheme || "dark";
     body.dataset.theme = defaultTheme;
     themeToggle.textContent = defaultTheme === "dark" ? "Light Mode" : "Dark Mode";
+
+    function closeMenu() {
+      if (!topbar || !menuToggle) {
+        return;
+      }
+      topbar.classList.remove("menu-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+    }
+
+    if (menuToggle && topbar) {
+      menuToggle.addEventListener("click", () => {
+        const isOpen = topbar.classList.toggle("menu-open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!topbar.contains(event.target)) {
+          closeMenu();
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 980) {
+          closeMenu();
+        }
+      });
+
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", closeMenu);
+      });
+    }
 
     themeToggle.addEventListener("click", () => {
       const nextTheme = body.dataset.theme === "dark" ? "light" : "dark";
