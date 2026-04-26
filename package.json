@@ -1,0 +1,9 @@
+{
+  "name": "hodle",
+  "version": "1.0.0",
+  "private": true,
+  "main": "puplic/server.js",
+  "scripts": {
+    "start": "node puplic/server.js"
+  }
+}
