@@ -17,19 +17,21 @@
         </div>
       </div>
       <div class="topbar-actions">
-        <button class="menu-btn" id="menuToggle" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="menu-btn" id="menuToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Toggle navigation">
           <span></span>
           <span></span>
           <span></span>
         </button>
-        <div class="mobile-drawer" id="mobileDrawer">
-          <div class="nav-links menu-item" aria-label="Site navigation">
-            <a class="ghost-btn" href="#customer-view">Customer Dashboard</a>
-            <a class="ghost-btn" href="admin.html">Admin Console</a>
+        <nav class="site-nav" id="siteNav" aria-label="Site navigation">
+          <ul class="nav-links">
+            <li><a class="nav-link" href="#customer-view">Customer Dashboard</a></li>
+            <li><button class="nav-link login-nav-trigger" id="loginNavTrigger" type="button" aria-controls="loginPanel" aria-expanded="false">Login</button></li>
+          </ul>
+          <div class="drawer-actions">
+            <button class="ghost-btn" id="themeToggle" type="button">Light Mode</button>
+            <a class="primary-btn" href="#packages">Launch Wireframes</a>
           </div>
-          <button class="ghost-btn menu-item" id="themeToggle" type="button">Light Mode</button>
-          <a class="primary-btn menu-item" href="#packages">Launch Wireframes</a>
-        </div>
+        </nav>
       </div>
     </header>
 
@@ -240,8 +242,8 @@
           </article>
         </div>
 
-        <div class="auth-grid">
-          <article class="card">
+        <div class="auth-grid login-collapsed" id="authGrid">
+          <article class="card" id="loginPanel" hidden>
             <div class="section-head">
               <div>
                 <h3>Authentication & Onboarding</h3>
@@ -578,6 +580,10 @@
     const body = document.body;
     const topbar = document.querySelector(".topbar");
     const menuToggle = document.getElementById("menuToggle");
+    const siteNav = document.getElementById("siteNav");
+    const authGrid = document.getElementById("authGrid");
+    const loginPanel = document.getElementById("loginPanel");
+    const loginNavTrigger = document.getElementById("loginNavTrigger");
     const themeToggle = document.getElementById("themeToggle");
     const savedTheme = localStorage.getItem("hodle-theme");
     const defaultTheme = savedTheme || "dark";
@@ -591,11 +597,28 @@
       topbar.classList.toggle("menu-open", isOpen);
       body.classList.toggle("menu-lock", isOpen && window.innerWidth <= 980);
       menuToggle.setAttribute("aria-expanded", String(isOpen));
+      if (siteNav) {
+        siteNav.setAttribute("aria-hidden", String(window.innerWidth <= 980 && !isOpen));
+      }
     }
 
     function closeMenu() {
       setMenuState(false);
     }
+
+    function openLoginPanel() {
+      if (!authGrid || !loginPanel) {
+        return;
+      }
+      loginPanel.hidden = false;
+      authGrid.classList.remove("login-collapsed");
+      if (loginNavTrigger) {
+        loginNavTrigger.setAttribute("aria-expanded", "true");
+      }
+      loginPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    setMenuState(false);
 
     if (menuToggle && topbar) {
       menuToggle.addEventListener("click", () => {
@@ -620,8 +643,15 @@
         }
       });
 
-      document.querySelectorAll(".mobile-drawer a").forEach((link) => {
+      document.querySelectorAll(".site-nav a").forEach((link) => {
         link.addEventListener("click", closeMenu);
+      });
+    }
+
+    if (loginNavTrigger) {
+      loginNavTrigger.addEventListener("click", () => {
+        openLoginPanel();
+        closeMenu();
       });
     }
 

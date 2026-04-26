@@ -17,17 +17,21 @@
         </div>
       </div>
       <div class="topbar-actions">
-        <button class="menu-btn" id="menuToggle" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="menu-btn" id="menuToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Toggle navigation">
           <span></span>
           <span></span>
           <span></span>
         </button>
-        <div class="nav-links menu-item" aria-label="Admin navigation">
-          <a class="ghost-btn" href="index.html">Customer Dashboard</a>
-          <a class="ghost-btn" href="#controls">Admin Controls</a>
-        </div>
-        <button class="ghost-btn menu-item" id="themeToggle" type="button">Light Mode</button>
-        <button class="primary-btn menu-item" type="button">Open Incident Room</button>
+        <nav class="site-nav" id="siteNav" aria-label="Admin navigation">
+          <ul class="nav-links">
+            <li><a class="nav-link" href="index.html">Customer Dashboard</a></li>
+            <li><a class="nav-link" href="#controls">Admin Controls</a></li>
+          </ul>
+          <div class="drawer-actions">
+            <button class="ghost-btn" id="themeToggle" type="button">Light Mode</button>
+            <button class="primary-btn" type="button">Open Incident Room</button>
+          </div>
+        </nav>
       </div>
     </header>
 
@@ -638,28 +642,44 @@
     const body = document.body;
     const topbar = document.querySelector(".topbar");
     const menuToggle = document.getElementById("menuToggle");
+    const siteNav = document.getElementById("siteNav");
     const themeToggle = document.getElementById("themeToggle");
     const savedTheme = localStorage.getItem("hodle-theme");
     const defaultTheme = savedTheme || "dark";
     body.dataset.theme = defaultTheme;
     themeToggle.textContent = defaultTheme === "dark" ? "Light Mode" : "Dark Mode";
 
-    function closeMenu() {
+    function setMenuState(isOpen) {
       if (!topbar || !menuToggle) {
         return;
       }
-      topbar.classList.remove("menu-open");
-      menuToggle.setAttribute("aria-expanded", "false");
+      topbar.classList.toggle("menu-open", isOpen);
+      body.classList.toggle("menu-lock", isOpen && window.innerWidth <= 980);
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      if (siteNav) {
+        siteNav.setAttribute("aria-hidden", String(window.innerWidth <= 980 && !isOpen));
+      }
     }
+
+    function closeMenu() {
+      setMenuState(false);
+    }
+
+    setMenuState(false);
 
     if (menuToggle && topbar) {
       menuToggle.addEventListener("click", () => {
-        const isOpen = topbar.classList.toggle("menu-open");
-        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        setMenuState(!topbar.classList.contains("menu-open"));
       });
 
       document.addEventListener("click", (event) => {
         if (!topbar.contains(event.target)) {
+          closeMenu();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
           closeMenu();
         }
       });
@@ -670,7 +690,7 @@
         }
       });
 
-      document.querySelectorAll(".nav-links a").forEach((link) => {
+      document.querySelectorAll(".site-nav a").forEach((link) => {
         link.addEventListener("click", closeMenu);
       });
     }
