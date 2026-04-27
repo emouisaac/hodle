@@ -37,7 +37,11 @@
 
     <section class="hero">
       <div>
-        <span class="eyebrow">Responsive fintech wireframes with live-motion UI</span>
+        <div class="eyebrow" aria-label="Live crypto market ticker">
+          <div class="ticker-shell">
+            <div class="ticker-track" id="cryptoTickerTrack"></div>
+          </div>
+        </div>
         <h2>Multi-asset reward flows built for trust, retention, and operator control.</h2>
         <p>
           This customer experience package turns your brief into a production-minded interface system with onboarding, portfolio tracking, reward cycles, deposits, referrals, and transparent reward messaging. The admin back office now lives in its own workspace so each side of the product can evolve independently.
@@ -585,10 +589,33 @@
     const loginPanel = document.getElementById("loginPanel");
     const loginNavTrigger = document.getElementById("loginNavTrigger");
     const themeToggle = document.getElementById("themeToggle");
+    const cryptoTickerTrack = document.getElementById("cryptoTickerTrack");
     const savedTheme = localStorage.getItem("hodle-theme");
     const defaultTheme = savedTheme || "dark";
     body.dataset.theme = defaultTheme;
     themeToggle.textContent = defaultTheme === "dark" ? "Light Mode" : "Dark Mode";
+    const fallbackTickerData = [
+      { rank: 1, symbol: "BTC", name: "Bitcoin", price: null, change24h: null },
+      { rank: 2, symbol: "ETH", name: "Ethereum", price: null, change24h: null },
+      { rank: 3, symbol: "USDT", name: "Tether", price: null, change24h: null },
+      { rank: 4, symbol: "XRP", name: "XRP", price: null, change24h: null },
+      { rank: 5, symbol: "BNB", name: "BNB", price: null, change24h: null },
+      { rank: 6, symbol: "SOL", name: "Solana", price: null, change24h: null },
+      { rank: 7, symbol: "USDC", name: "USDC", price: null, change24h: null },
+      { rank: 8, symbol: "DOGE", name: "Dogecoin", price: null, change24h: null },
+      { rank: 9, symbol: "ADA", name: "Cardano", price: null, change24h: null },
+      { rank: 10, symbol: "TRX", name: "TRON", price: null, change24h: null },
+      { rank: 11, symbol: "AVAX", name: "Avalanche", price: null, change24h: null },
+      { rank: 12, symbol: "TON", name: "Toncoin", price: null, change24h: null },
+      { rank: 13, symbol: "LINK", name: "Chainlink", price: null, change24h: null },
+      { rank: 14, symbol: "SHIB", name: "Shiba Inu", price: null, change24h: null },
+      { rank: 15, symbol: "DOT", name: "Polkadot", price: null, change24h: null },
+      { rank: 16, symbol: "BCH", name: "Bitcoin Cash", price: null, change24h: null },
+      { rank: 17, symbol: "NEAR", name: "NEAR Protocol", price: null, change24h: null },
+      { rank: 18, symbol: "LTC", name: "Litecoin", price: null, change24h: null },
+      { rank: 19, symbol: "ICP", name: "Internet Computer", price: null, change24h: null },
+      { rank: 20, symbol: "UNI", name: "Uniswap", price: null, change24h: null }
+    ];
 
     function setMenuState(isOpen) {
       if (!topbar || !menuToggle) {
@@ -661,6 +688,108 @@
       localStorage.setItem("hodle-theme", nextTheme);
       themeToggle.textContent = nextTheme === "dark" ? "Light Mode" : "Dark Mode";
     });
+
+    function formatTickerPrice(price) {
+      if (!Number.isFinite(price)) {
+        return "Updating";
+      }
+      if (price >= 1000) {
+        return "$" + price.toLocaleString(undefined, { maximumFractionDigits: 2 });
+      }
+      if (price >= 1) {
+        return "$" + price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+      if (price >= 0.01) {
+        return "$" + price.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+      }
+      return "$" + price.toLocaleString(undefined, { minimumFractionDigits: 6, maximumFractionDigits: 6 });
+    }
+
+    function formatTickerChange(change24h) {
+      if (!Number.isFinite(change24h)) {
+        return "--";
+      }
+      const rounded = change24h.toFixed(2);
+      return (change24h >= 0 ? "+" : "") + rounded + "%";
+    }
+
+    function createTickerItem(coin) {
+      const item = document.createElement("span");
+      item.className = "ticker-item";
+
+      const rank = document.createElement("span");
+      rank.className = "ticker-rank";
+      rank.textContent = "#" + (coin.rank || "");
+
+      const symbol = document.createElement("span");
+      symbol.className = "ticker-symbol";
+      symbol.textContent = coin.symbol || coin.name || "COIN";
+
+      const price = document.createElement("span");
+      price.className = "ticker-price";
+      price.textContent = formatTickerPrice(coin.price);
+
+      const change = document.createElement("span");
+      const changeClass = Number.isFinite(coin.change24h)
+        ? coin.change24h >= 0
+          ? "up"
+          : "down"
+        : "flat";
+      change.className = "ticker-change " + changeClass;
+      change.textContent = formatTickerChange(coin.change24h) + " 24H";
+
+      item.append(rank, symbol, price, change);
+      return item;
+    }
+
+    function createTickerSet(coins, isHidden = false) {
+      const set = document.createElement("div");
+      set.className = "ticker-set";
+      if (isHidden) {
+        set.setAttribute("aria-hidden", "true");
+      }
+      coins.forEach((coin) => {
+        set.appendChild(createTickerItem(coin));
+      });
+      return set;
+    }
+
+    function renderCryptoTicker(coins) {
+      if (!cryptoTickerTrack) {
+        return;
+      }
+
+      const marketCoins = Array.isArray(coins) && coins.length ? coins.slice(0, 20) : fallbackTickerData;
+      cryptoTickerTrack.replaceChildren(
+        createTickerSet(marketCoins),
+        createTickerSet(marketCoins, true)
+      );
+      cryptoTickerTrack.style.setProperty("--ticker-duration", `${Math.max(28, marketCoins.length * 2.5)}s`);
+      cryptoTickerTrack.style.animation = "none";
+      void cryptoTickerTrack.offsetWidth;
+      cryptoTickerTrack.style.animation = "";
+    }
+
+    async function loadCryptoTicker() {
+      if (!cryptoTickerTrack) {
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/crypto-ticker", { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error("Ticker request failed");
+        }
+        const payload = await response.json();
+        renderCryptoTicker(payload.data);
+      } catch (error) {
+        renderCryptoTicker(fallbackTickerData);
+      }
+    }
+
+    renderCryptoTicker(fallbackTickerData);
+    loadCryptoTicker();
+    setInterval(loadCryptoTicker, 90000);
 
     const animatedNumbers = document.querySelectorAll("[data-target]");
 

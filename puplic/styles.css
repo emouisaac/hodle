@@ -61,6 +61,7 @@
 
     html {
       scroll-behavior: smooth;
+      overflow-x: clip;
     }
 
     body {
@@ -73,7 +74,9 @@
         radial-gradient(circle at bottom center, rgba(255, 184, 77, 0.09), transparent 26%),
         linear-gradient(160deg, #05101d 0%, var(--bg) 55%, #071a2e 100%);
       min-height: 100vh;
-      overflow-x: hidden;
+      width: 100%;
+      overflow-x: clip;
+      overscroll-behavior-x: none;
     }
 
     body[data-theme="light"] {
@@ -303,6 +306,13 @@
       box-shadow: var(--shadow);
     }
 
+    .hero > div,
+    .hero-side,
+    .live-strip,
+    .mini-stat {
+      min-width: 0;
+    }
+
     .hero::after {
       content: "";
       position: absolute;
@@ -318,7 +328,9 @@
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      width: clamp(280px, 42vw, 460px);
+      max-width: 100%;
+      min-height: 36px;
       padding: 8px 14px;
       border-radius: 999px;
       font-size: 0.82rem;
@@ -328,6 +340,78 @@
       color: var(--accent-2);
       background: var(--badge-wash);
       border: 1px solid rgba(78, 240, 165, 0.18);
+      overflow: hidden;
+    }
+
+    .ticker-shell {
+      position: relative;
+      flex: 1 1 auto;
+      min-width: 0;
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent 0, black 18px, black calc(100% - 18px), transparent 100%);
+      touch-action: pan-y;
+    }
+
+    .ticker-track {
+      --ticker-duration: 42s;
+      display: flex;
+      align-items: center;
+      width: max-content;
+      white-space: nowrap;
+      will-change: transform;
+      animation: ticker-scroll var(--ticker-duration) linear infinite;
+    }
+
+    .ticker-set {
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding-right: 26px;
+    }
+
+    .ticker-rank {
+      color: var(--muted);
+    }
+
+    .ticker-symbol,
+    .ticker-price,
+    .ticker-change {
+      white-space: nowrap;
+    }
+
+    .ticker-symbol {
+      color: var(--text);
+    }
+
+    .ticker-price {
+      color: var(--text);
+      opacity: 0.92;
+    }
+
+    .ticker-change.up {
+      color: var(--accent-2);
+    }
+
+    .ticker-change.down {
+      color: var(--accent-4);
+    }
+
+    .ticker-change.flat {
+      color: var(--accent-3);
+    }
+
+    @keyframes ticker-scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
     }
 
     .hero h2 {
@@ -1150,6 +1234,13 @@
       100% { box-shadow: 0 0 0 0 rgba(78, 240, 165, 0); }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-track {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+      }
+    }
+
     @media (max-width: 1200px) {
       .hero,
       .portfolio-grid,
@@ -1318,6 +1409,7 @@
     @media (max-width: 640px) {
       .shell {
         width: min(100% - 16px, 1440px);
+        overflow-x: clip;
       }
 
       .hero h2 {
@@ -1342,6 +1434,31 @@
       .inline-actions .ghost-btn {
         width: 100%;
         text-align: center;
+      }
+
+      .eyebrow {
+        width: 100%;
+        min-height: 34px;
+        padding: 7px 12px;
+      }
+
+      .ticker-shell {
+        mask-image: linear-gradient(to right, transparent 0, black 10px, black calc(100% - 10px), transparent 100%);
+      }
+
+      .ticker-track {
+        --ticker-duration: 34s;
+      }
+
+      .ticker-item {
+        gap: 8px;
+        padding-right: 18px;
+        font-size: 0.72rem;
+        letter-spacing: 0.05em;
+      }
+
+      .ticker-rank {
+        display: none;
       }
 
       .asset-line {
@@ -1438,6 +1555,7 @@
       .shell {
         width: calc(100% - 12px);
         padding-top: 10px;
+        overflow-x: clip;
       }
 
       .topbar,
@@ -1483,8 +1601,23 @@
 
       .eyebrow {
         width: 100%;
-        justify-content: center;
-        text-align: center;
+        justify-content: flex-start;
+        text-align: left;
+        padding: 6px 10px;
+      }
+
+      .ticker-track {
+        --ticker-duration: 30s;
+      }
+
+      .ticker-item {
+        gap: 7px;
+        padding-right: 16px;
+        font-size: 0.68rem;
+      }
+
+      .ticker-change {
+        font-size: 0.64rem;
       }
 
       .orbital {
