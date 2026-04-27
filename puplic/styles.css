@@ -528,6 +528,10 @@
       box-shadow: 0 0 0 16px rgba(68, 217, 255, 0.06);
     }
 
+    .orbit-core > div {
+      width: 100%;
+    }
+
     .orbit-core small {
       display: block;
       color: var(--muted);
@@ -536,7 +540,12 @@
     }
 
     .orbit-core strong {
+      display: block;
       font-size: 1.5rem;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
     }
 
     .coin {
@@ -550,6 +559,10 @@
       letter-spacing: 0.06em;
       color: #07111d;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+      text-align: center;
+      transform-origin: center;
+      animation: coin-float 5.6s ease-in-out infinite;
+      transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease, color 220ms ease;
     }
 
     .coin.btc { top: 16%; left: 22%; background: #ffb84d; }
@@ -557,6 +570,54 @@
     .coin.bnb { right: 24%; bottom: 18%; background: #ffd84e; }
     .coin.sol { left: 18%; bottom: 20%; background: #4ef0a5; }
     .coin.doge { top: 46%; right: 6%; background: #f8d67f; }
+
+    .coin.eth {
+      animation-delay: -1s;
+    }
+
+    .coin.bnb {
+      animation-delay: -2s;
+    }
+
+    .coin.sol {
+      animation-delay: -3s;
+    }
+
+    .coin.doge {
+      animation-delay: -4s;
+    }
+
+    .coin-logo {
+      display: block;
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.22));
+    }
+
+    .coin.coin-up {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22), 0 0 0 2px rgba(78, 240, 165, 0.22);
+    }
+
+    .coin.coin-down {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22), 0 0 0 2px rgba(255, 107, 107, 0.18);
+    }
+
+    .coin.coin-flat {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22), 0 0 0 2px rgba(255, 184, 77, 0.16);
+    }
+
+    @keyframes coin-float {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      50% {
+        transform: translate3d(0, -8px, 0) scale(1.04);
+      }
+      100% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+    }
 
     .signal-card {
       display: grid;
@@ -1239,6 +1300,10 @@
         animation-duration: 0.01ms;
         animation-iteration-count: 1;
       }
+
+      .coin {
+        animation: none;
+      }
     }
 
     @media (max-width: 1200px) {
@@ -1486,6 +1551,26 @@
         font-size: 0.78rem;
       }
 
+      .coin-logo {
+        width: 26px;
+        height: 26px;
+      }
+
+      .orbit-core {
+        width: 118px;
+        height: 118px;
+        padding: 15px 12px;
+      }
+
+      .orbit-core small {
+        font-size: 0.65rem;
+        margin-bottom: 5px;
+      }
+
+      .orbit-core strong {
+        font-size: 1rem;
+      }
+
       .switch-row,
       .audit-item,
       .mini-table article {
@@ -1631,14 +1716,24 @@
         font-size: 0.68rem;
       }
 
+      .coin-logo {
+        width: 22px;
+        height: 22px;
+      }
+
       .orbit-core {
         width: 98px;
         height: 98px;
-        padding: 14px;
+        padding: 12px 10px;
+      }
+
+      .orbit-core small {
+        font-size: 0.56rem;
+        margin-bottom: 4px;
       }
 
       .orbit-core strong {
-        font-size: 1.15rem;
+        font-size: 0.82rem;
       }
 
       table {

@@ -48,7 +48,6 @@
         </p>
         <div class="hero-actions">
           <a class="primary-btn" href="#customer-view">Explore User Flow</a>
-          <a class="ghost-btn" href="admin.html">Open Admin Console</a>
         </div>
         <div class="live-strip">
           <div class="mini-stat">
@@ -59,19 +58,15 @@
             <span>Reward Engine</span>
             <strong class="pulse">24h Cycle Active</strong>
           </div>
-          <div class="mini-stat">
-            <span>Wireframe Scope</span>
-            <strong>Customer + Compliance + Admin Linkout</strong>
-          </div>
         </div>
       </div>
       <div class="hero-side">
         <div class="orbital">
-          <div class="coin btc">BTC</div>
-          <div class="coin eth">ETH</div>
-          <div class="coin bnb">BNB</div>
-          <div class="coin sol">SOL</div>
-          <div class="coin doge">DOGE</div>
+          <div class="coin btc" data-orbit-slot="0"><img class="coin-logo" alt="Bitcoin logo"></div>
+          <div class="coin eth" data-orbit-slot="1"><img class="coin-logo" alt="Ethereum logo"></div>
+          <div class="coin bnb" data-orbit-slot="2"><img class="coin-logo" alt="BNB logo"></div>
+          <div class="coin sol" data-orbit-slot="3"><img class="coin-logo" alt="Solana logo"></div>
+          <div class="coin doge" data-orbit-slot="4"><img class="coin-logo" alt="Dogecoin logo"></div>
           <div class="orbit-core">
             <div>
               <small>Total Simulated Yield</small>
@@ -98,12 +93,6 @@
           <div>
             <h3>Customer Dashboard Wireframes</h3>
             <p>Investor-facing layouts for acquisition, onboarding, earnings visibility, deposits, referral growth, and recurring reward engagement.</p>
-          </div>
-          <div class="pill-row">
-            <span class="chip">Mobile-first</span>
-            <span class="chip">Dark / Light mode</span>
-            <span class="chip">Animated counters</span>
-            <span class="chip">Realtime mock feed</span>
           </div>
         </div>
 
@@ -590,6 +579,8 @@
     const loginNavTrigger = document.getElementById("loginNavTrigger");
     const themeToggle = document.getElementById("themeToggle");
     const cryptoTickerTrack = document.getElementById("cryptoTickerTrack");
+    const orbitCoinNodes = Array.from(document.querySelectorAll(".orbital .coin"));
+    const browserMarketFeedUrl = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false&price_change_percentage=24h";
     const savedTheme = localStorage.getItem("hodle-theme");
     const defaultTheme = savedTheme || "dark";
     body.dataset.theme = defaultTheme;
@@ -754,6 +745,68 @@
       return set;
     }
 
+    function selectOrbitCoins(coins) {
+      const excludedSymbols = new Set(["USDT", "USDC", "USDS", "DAI", "FDUSD", "TUSD"]);
+      const filtered = (Array.isArray(coins) ? coins : []).filter((coin) => !excludedSymbols.has(coin.symbol));
+      const selected = (filtered.length ? filtered : coins).slice(0, orbitCoinNodes.length);
+      return selected.length ? selected : fallbackTickerData.slice(0, orbitCoinNodes.length);
+    }
+
+    function renderOrbitCoins(coins) {
+      if (!orbitCoinNodes.length) {
+        return;
+      }
+
+      const featuredCoins = selectOrbitCoins(coins);
+      orbitCoinNodes.forEach((node, index) => {
+        const coin = featuredCoins[index];
+        if (!coin) {
+          return;
+        }
+
+        const logoNode = node.querySelector(".coin-logo");
+        node.classList.remove("coin-up", "coin-down", "coin-flat");
+
+        if (Number.isFinite(coin.change24h)) {
+          node.classList.add(coin.change24h >= 0 ? "coin-up" : "coin-down");
+        } else {
+          node.classList.add("coin-flat");
+        }
+
+        if (logoNode) {
+          logoNode.src = coin.image || "";
+          logoNode.alt = `${coin.name} logo`;
+        }
+
+        node.title = `${coin.name} | ${formatTickerPrice(coin.price)} | ${formatTickerChange(coin.change24h)} 24H`;
+      });
+    }
+
+    function renderTickerMessage(message) {
+      if (!cryptoTickerTrack) {
+        return;
+      }
+      const item = document.createElement("span");
+      item.className = "ticker-item";
+      item.textContent = message;
+      cryptoTickerTrack.replaceChildren(item);
+      cryptoTickerTrack.style.animation = "none";
+    }
+
+    function normalizeTickerEntries(entries) {
+      return (Array.isArray(entries) ? entries : [])
+        .slice(0, 20)
+        .map((entry, index) => ({
+          rank: Number.isFinite(entry.rank) ? entry.rank : Number.isFinite(entry.market_cap_rank) ? entry.market_cap_rank : index + 1,
+          symbol: String(entry.symbol || "").toUpperCase(),
+          name: String(entry.name || "Unknown"),
+          price: Number.isFinite(entry.price) ? entry.price : Number.isFinite(entry.current_price) ? entry.current_price : null,
+          change24h: Number.isFinite(entry.change24h) ? entry.change24h : Number.isFinite(entry.price_change_percentage_24h) ? entry.price_change_percentage_24h : null,
+          image: typeof entry.image === "string" ? entry.image : null
+        }))
+        .filter((entry) => entry.symbol);
+    }
+
     function renderCryptoTicker(coins) {
       if (!cryptoTickerTrack) {
         return;
@@ -764,10 +817,26 @@
         createTickerSet(marketCoins),
         createTickerSet(marketCoins, true)
       );
+      renderOrbitCoins(marketCoins);
       cryptoTickerTrack.style.setProperty("--ticker-duration", `${Math.max(28, marketCoins.length * 2.5)}s`);
       cryptoTickerTrack.style.animation = "none";
       void cryptoTickerTrack.offsetWidth;
       cryptoTickerTrack.style.animation = "";
+    }
+
+    async function fetchTickerEntries(url) {
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("Ticker request failed");
+      }
+
+      const payload = await response.json();
+      const entries = Array.isArray(payload) ? payload : payload.data;
+      const normalized = normalizeTickerEntries(entries);
+      if (!normalized.length) {
+        throw new Error("Ticker payload was empty");
+      }
+      return normalized;
     }
 
     async function loadCryptoTicker() {
@@ -775,19 +844,26 @@
         return;
       }
 
-      try {
-        const response = await fetch("/api/crypto-ticker", { cache: "no-store" });
-        if (!response.ok) {
-          throw new Error("Ticker request failed");
-        }
-        const payload = await response.json();
-        renderCryptoTicker(payload.data);
-      } catch (error) {
-        renderCryptoTicker(fallbackTickerData);
+      const sources = [];
+      if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+        sources.push(new URL("/api/crypto-ticker", window.location.href).toString());
       }
+      sources.push(browserMarketFeedUrl);
+
+      for (const source of sources) {
+        try {
+          const liveEntries = await fetchTickerEntries(source);
+          renderCryptoTicker(liveEntries);
+          return;
+        } catch (error) {
+          continue;
+        }
+      }
+
+      renderCryptoTicker(fallbackTickerData);
     }
 
-    renderCryptoTicker(fallbackTickerData);
+    renderTickerMessage("Loading live crypto prices...");
     loadCryptoTicker();
     setInterval(loadCryptoTicker, 90000);
 
